@@ -79,7 +79,7 @@ public class NewActionJ extends JFrame {
 	JComboBox<String> secondActC;
 	JComboBox<String> havesecondActC;
 	JComboBox WaitingTypeListC;
-	 String[] waitingTypeList= {"elementToBeClickable","presenceOfElementLocated"};
+	 String[] waitingTypeList= {"elementToBeClickable","presenceOfElementLocated"," "};
 	 String[] actionElementList = { "byid", "byxpath" };
 	 String[] actionsList = { "sendkey", "click", "clear" };
 	 String[] needWaitList = { "yes", "no"};
@@ -177,51 +177,51 @@ public class NewActionJ extends JFrame {
 	        JTableHeader headerResumen = table.getTableHeader();
 	        headerResumen.setResizingAllowed(true);
 		scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(487, 93, 800, 432);
+		scrollPane.setBounds(487, 93, 800, 444);
 		 contentPane.add(scrollPane);
 //		 getDataFromMysql();
 		 JLabel lblNewLabel = new JLabel("CaseID");
-		 lblNewLabel.setBounds(10, 111, 45, 13);
+		 lblNewLabel.setBounds(10, 103, 45, 13);
 		 contentPane.add(lblNewLabel);
 		 
 		 JLabel lblActionid = new JLabel("ActionID ");
-		 lblActionid.setBounds(10, 160, 78, 13);
+		 lblActionid.setBounds(10, 142, 78, 13);
 		 contentPane.add(lblActionid);
 		 
 		
 		 
 		 JLabel lblActionElement = new JLabel("Action Element");
-		 lblActionElement.setBounds(10, 204, 113, 13);
+		 lblActionElement.setBounds(10, 186, 113, 13);
 		 contentPane.add(lblActionElement);
 		 
 		 JLabel lblAction = new JLabel("Action");
-		 lblAction.setBounds(10, 277, 45, 13);
+		 lblAction.setBounds(10, 262, 45, 13);
 		 contentPane.add(lblAction);
 		 
 		 JLabel lblNeedWait = new JLabel("Need Wait");
-		 lblNeedWait.setBounds(10, 317, 98, 13);
+		 lblNeedWait.setBounds(10, 304, 98, 13);
 		 contentPane.add(lblNeedWait);
 		 
 		 JLabel lblElementType = new JLabel("Element type");
-		 lblElementType.setBounds(10, 393, 98, 13);
+		 lblElementType.setBounds(10, 382, 98, 13);
 		 contentPane.add(lblElementType);
 		 
 		 JLabel lblListlink = new JLabel("ListLink");
-		 lblListlink.setBounds(10, 433, 78, 13);
+		 lblListlink.setBounds(10, 463, 78, 13);
 		 contentPane.add(lblListlink);
 		 
 		 JLabel lblSeconedAction = new JLabel("Seconed Action");
-		 lblSeconedAction.setBounds(10, 510, 98, 13);
+		 lblSeconedAction.setBounds(10, 524, 98, 13);
 		 contentPane.add(lblSeconedAction);
 //		 getLastCase();
 		 ActionIdT = new JTextField();
 		 ActionIdT.setColumns(10);
-		 ActionIdT.setBounds(151, 157, 308, 19);
+		 ActionIdT.setBounds(151, 139, 308, 19);
 		 contentPane.add(ActionIdT);
 		 
 		 LinkT = new JTextField();
 		 LinkT.setColumns(10);
-		 LinkT.setBounds(151, 237, 308, 19);
+		 LinkT.setBounds(151, 220, 308, 19);
 		 contentPane.add(LinkT);
 		 
 //		 ActionElemT = new JTextField();
@@ -246,7 +246,7 @@ public class NewActionJ extends JFrame {
 		 
 		 ListLinkT = new JTextField();
 		 ListLinkT.setColumns(10);
-		 ListLinkT.setBounds(151, 430, 308, 19);
+		 ListLinkT.setBounds(151, 460, 308, 19);
 		 contentPane.add(ListLinkT);
 		 
 //		 SecondAcT = new JTextField();
@@ -255,7 +255,7 @@ public class NewActionJ extends JFrame {
 //		 contentPane.add(SecondAcT);
 		 
 		 JLabel lblHaveSecondAction = new JLabel("Have Second Action");
-		 lblHaveSecondAction.setBounds(10, 466, 124, 13);
+		 lblHaveSecondAction.setBounds(10, 493, 124, 13);
 		 contentPane.add(lblHaveSecondAction);
 		 
 //		 HaveSecondAcT = new JTextField();
@@ -447,25 +447,41 @@ public class NewActionJ extends JFrame {
 		 contentPane.add(lblNewLabel_1);
 	
 		 JLabel lblLink = new JLabel();
-		 lblLink.setBounds(10, 240, 45, 13);
+		 lblLink.setBounds(10, 223, 45, 13);
 		 lblLink.setText("Link");
 		 contentPane.add(lblLink);
 		 
 		 actionElement = new JComboBox(actionElementList);
-		 actionElement.setBounds(151, 200, 308, 21);
+		 actionElement.setBounds(151, 182, 308, 21);
 		 contentPane.add(actionElement);
 		
 		 
 		  actionC = new JComboBox(actionsList);
-		 actionC.setBounds(151, 273, 308, 21);
+		 actionC.setBounds(151, 258, 308, 21);
 		 contentPane.add(actionC);
 		 
 		  needWaitC = new JComboBox(needWaitList);
-		 needWaitC.setBounds(151, 313, 308, 21);
+		 needWaitC.setBounds(151, 300, 308, 21);
 		 contentPane.add(needWaitC);
+		 needWaitC.addActionListener(new ActionListener() {
+	            @SuppressWarnings("deprecation")
+				public void actionPerformed(ActionEvent e1) {
+	            	if(needWaitC.getSelectedItem()=="no") {
+	            		waitingP.setEnabled(false);
+	            		waitingP.setEditable(false);
+	            		WaitingTypeListC.setSelectedItem(" ");
+	            		WaitingTypeListC.setEnabled(false);
+	            	}
+	            	else {
+	            		waitingP.setEnabled(true);
+	            		waitingP.setEditable(true);
+	            		
+	            		WaitingTypeListC.setEnabled(true);
+	            	}
+	            }});
 		 
 		 elementTypeC = new JComboBox(elementTypeList);
-		 elementTypeC.setBounds(151, 389, 308, 21);
+		 elementTypeC.setBounds(151, 378, 308, 21);
 		 contentPane.add(elementTypeC);
 		 ListLinkT.setEnabled(false);
  		ListLinkT.setEditable(false);
@@ -486,11 +502,11 @@ public class NewActionJ extends JFrame {
 	            }});
 		 
 		  secondActC = new JComboBox(secondActList);
-		 secondActC.setBounds(151, 502, 308, 21);
+		 secondActC.setBounds(151, 520, 308, 21);
 		 contentPane.add(secondActC);
 		 
 		  havesecondActC = new JComboBox(HaveSecondActList);
-		 havesecondActC.setBounds(151, 462, 308, 21);
+		 havesecondActC.setBounds(151, 489, 308, 21);
 		 contentPane.add(havesecondActC);
 		 
 		 JButton clear = new JButton("Clear");
@@ -522,15 +538,15 @@ public class NewActionJ extends JFrame {
 		 
 		  caseidL = new JComboBox(ss)
 ;
-		 caseidL.setBounds(153, 107, 308, 21);
+		 caseidL.setBounds(151, 93, 308, 21);
 		 contentPane.add(caseidL);
 		 
 		 JLabel lblNewLabel_3 = new JLabel("Waiting Period");
-		 lblNewLabel_3.setBounds(10, 355, 98, 13);
+		 lblNewLabel_3.setBounds(10, 341, 98, 13);
 		 contentPane.add(lblNewLabel_3);
 		 
 		 waitingP = new JTextField();
-		 waitingP.setBounds(151, 352, 308, 19);
+		 waitingP.setBounds(151, 338, 308, 19);
 		 contentPane.add(waitingP);
 		 waitingP.setColumns(10);
 		 
@@ -551,11 +567,11 @@ public class NewActionJ extends JFrame {
 	            	
 	            }});
 		 JLabel waitingType = new JLabel("Waiting Type ");
-		 waitingType.setBounds(10, 397, 78, 13);
+		 waitingType.setBounds(10, 429, 78, 13);
 		 contentPane.add(waitingType);
 		 
 		  WaitingTypeListC = new JComboBox(waitingTypeList);
-		 WaitingTypeListC.setBounds(151, 393, 308, 21);
+		 WaitingTypeListC.setBounds(151, 425, 308, 21);
 		 contentPane.add(WaitingTypeListC);
 //		 getLastActioId();
 		 havesecondActC.addActionListener(new ActionListener() {
