@@ -79,7 +79,7 @@ public class NewActionJ extends JFrame {
 	JComboBox<String> secondActC;
 	JComboBox<String> havesecondActC;
 	JComboBox WaitingTypeListC;
-	 String[] waitingTypeList= {"elementToBeClickable","presenceOfElementLocated"," "};
+	 String[] waitingTypeList= {"elementToBeClickable","presenceOfElementLocated","//"};
 	 String[] actionElementList = { "byid", "byxpath" };
 	 String[] actionsList = { "sendkey", "click", "clear" };
 	 String[] needWaitList = { "yes", "no"};
@@ -135,7 +135,7 @@ public class NewActionJ extends JFrame {
 		  final JTable table = new JTable(); 
 	        
 	        // create a table model and set a Column Identifiers to this model 
-	        Object[] columns = {"CaseID","ActionID","Link","Action Elemnet","Action","Need Wait","Element Type","List","Have Seconed Action","Seconed Action","Waiting Periode"};
+	        Object[] columns = {"CaseID","ActionID","Link","Action Elemnet","Action","Need Wait","Element Type","List","Have Seconed Action","Seconed Action","Waiting Periode","Waiting Type"};
 	         model = (DefaultTableModel)table.getModel();
 	        model.setColumnIdentifiers(columns);
 	        
@@ -280,7 +280,8 @@ public class NewActionJ extends JFrame {
                 	ListLinkT.setText(model.getValueAt(i, 7).toString());
                 	secondActC.setSelectedItem(model.getValueAt(i, 8).toString());
                 	havesecondActC.setSelectedItem(model.getValueAt(i, 9).toString());
-                	waitingP.setText(model.getValueAt(i, 10).toString());  
+                	waitingP.setText(model.getValueAt(i, 10).toString()); 
+                	WaitingTypeListC.setSelectedItem(model.getValueAt(i, 11).toString());
 		        }
 		        });
 		 JButton save = new JButton("Save");
@@ -289,7 +290,7 @@ public class NewActionJ extends JFrame {
 		 save.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		 save.setBounds(190, 584, 89, 25);
 		 contentPane.add(save);
-		 final Object[] row = new Object[11];
+		 final Object[] row = new Object[12];
 		 save.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e1) {
 	            
@@ -321,7 +322,8 @@ public class NewActionJ extends JFrame {
 		                row[7] = ListLinkT.getText();
 		                row[8] = havesecondActC.getSelectedItem().toString();
 		                row[9] = secondActC.getSelectedItem().toString();
-		                row[10]=waitingP.getText();
+		                row[10]= waitingP.getText();
+		                row[11]= WaitingTypeListC.getSelectedItem().toString();
 		             
 		                // add row to the model
 		                model.addRow(row);
@@ -367,6 +369,8 @@ public class NewActionJ extends JFrame {
 		                   model.setValueAt(ListLinkT.getText(), i, 7);
 		                   model.setValueAt(secondActC.getSelectedItem().toString(), i, 8);
 		                   model.setValueAt(havesecondActC.getSelectedItem().toString(), i, 9);
+		                   model.setValueAt(waitingP.getText(),i,10);
+		                   model.setValueAt(WaitingTypeListC.getSelectedItem().toString(),i,11);
 		                   ActionIdT.setEditable(false);
 		                   ActionIdT.setEnabled(false);
 		                   try {
@@ -469,7 +473,7 @@ public class NewActionJ extends JFrame {
 	            	if(needWaitC.getSelectedItem()=="no") {
 	            		waitingP.setEnabled(false);
 	            		waitingP.setEditable(false);
-	            		WaitingTypeListC.setSelectedItem(" ");
+	            		WaitingTypeListC.setSelectedItem("//");
 	            		WaitingTypeListC.setEnabled(false);
 	            	}
 	            	else {
@@ -610,7 +614,7 @@ public class NewActionJ extends JFrame {
 			//execute query 
 			//stmt=con.createStatement();
 			 
-			String sql="INSERT INTO QA_Automation.DBO.ACTIONS (caseid,actionId, link, actionElement, actionName, needWait, elementType, lisItemlink, secondAction, haveSecondAction,waitingPeriode) VALUES (?,?, ?, ?,?, ?, ?, ?,?, ?,?)";
+			String sql="INSERT INTO QA_Automation.DBO.ACTIONS (caseid,actionId, link, actionElement, actionName, needWait, elementType, lisItemlink, secondAction, haveSecondAction,waitingPeriode,waitingType) VALUES (?,?, ?, ?,?, ?, ?, ?,?, ?,?,?)";
 			 PreparedStatement preparedStmt = con.prepareStatement(sql);
 			  preparedStmt.setString (1, caseidL.getSelectedItem().toString());
 			  preparedStmt.setString (2, ActionIdT.getText());
@@ -623,6 +627,7 @@ public class NewActionJ extends JFrame {
 			  preparedStmt.setString (9, secondActC.getSelectedItem().toString());
 			  preparedStmt.setString (10, havesecondActC.getSelectedItem().toString());
 			  preparedStmt.setString (11, waitingP.getText());
+			  preparedStmt.setString (12, WaitingTypeListC.getSelectedItem().toString());
 			  preparedStmt.execute();
 			
 			// TODO Auto-generated catch block
@@ -653,7 +658,7 @@ public class NewActionJ extends JFrame {
 			//execute query 
 			//stmt=con.createStatement();
 			 
-			String sql="update QA_Automation.DBO.ACTIONS set link = ?,actionElement = ?,actionName = ?,needWait = ?,elementType = ?,ListItemLink = ?, secondAction= ?,haveSecondAction = ? ,waitingPeriode=? where actionId = ?";
+			String sql="update QA_Automation.DBO.ACTIONS set link = ?,actionElement = ?,actionName = ?,needWait = ?,elementType = ?,ListItemLink = ?, secondAction= ?,haveSecondAction = ? ,waitingPeriode=?,waitingType=? where actionId = ?";
 			 PreparedStatement preparedStmt = con.prepareStatement(sql);
 			// preparedStmt.setString (2, ActionIdT.getText());
 			  preparedStmt.setString (1, LinkT.getText());
@@ -665,7 +670,9 @@ public class NewActionJ extends JFrame {
 			  preparedStmt.setString (7, secondActC.getSelectedItem().toString());
 			  preparedStmt.setString (8, havesecondActC.getSelectedItem().toString());
 			  preparedStmt.setString (9, waitingP.getText());
-			 preparedStmt.setString (10, ActionIdT.getText());
+			  preparedStmt.setString (10, WaitingTypeListC.getSelectedItem().toString());
+			 preparedStmt.setString (11, ActionIdT.getText());
+			 
 			  preparedStmt.execute();
 			
 			// TODO Auto-generated catch block
@@ -740,6 +747,7 @@ public void clearBB() {
 	elementTypeC.setSelectedItem(elementTypeList[0]);
 	secondActC.setSelectedItem(secondActList[0]);
 	havesecondActC.setSelectedItem(HaveSecondActList[0]);
+	WaitingTypeListC.setSelectedIndex(0);
 
 }
 
@@ -758,7 +766,7 @@ public void getDataFromMysql() throws SQLException {
 		result=stmt.executeQuery(sql);
 		while(result.next()){
 
-            Object o[] = {result.getString("caseid"),result.getString("actionId"),result.getString("link"),result.getString("actionElement"),result.getString("actionName"),result.getString("needWait"),result.getString("elementType"),result.getString("lisItemLink"),result.getString("secondAction"),result.getString("haveSecondAction"),result.getString("waitingPeriode")};
+            Object o[] = {result.getString("caseid"),result.getString("actionId"),result.getString("link"),result.getString("actionElement"),result.getString("actionName"),result.getString("needWait"),result.getString("elementType"),result.getString("lisItemLink"),result.getString("secondAction"),result.getString("haveSecondAction"),result.getString("waitingPeriode"),result.getString("waitingType")};
             model1.addRow(o);
 
 
