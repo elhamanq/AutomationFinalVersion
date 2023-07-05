@@ -300,7 +300,7 @@ public class AddTestCaseJ extends JFrame {
 				stmt = con.prepareStatement("DELETE FROM QA_Automation.DBO.DATASETS WHERE setId =?");
 				stmt.setString(1, setIddel);
 				stmt.executeUpdate();
-				            JOptionPane.showMessageDialog(null, "Record Delete!!!!!");
+				            JOptionPane.showMessageDialog(null, "Record Deleted!!!!!");
 				            btnDeleteActionPerformed(e);
 				          
 				          
