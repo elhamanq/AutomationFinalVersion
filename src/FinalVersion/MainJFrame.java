@@ -600,7 +600,7 @@ public class MainJFrame extends JFrame {
 								if(cases.get(i).action.get(j).getWaitingtype()!=null||cases.get(i).action.get(j).getWaitingtype()!="//"){
 									if(cases.get(i).action.get(j).getWaitingtype().equals("elementToBeClickable")) {
 									System.out.println("inside yes");
-									WebDriverWait wait = new WebDriverWait(web, Duration.ofSeconds(5));
+									WebDriverWait wait = new WebDriverWait(web, Duration.ofSeconds(cases.get(i).action.get(j).getWaitingPeriode()));
 									w = wait.until(ExpectedConditions
 											.elementToBeClickable(By.id(cases.get(i).action.get(j).getLink())));
 
@@ -609,7 +609,7 @@ public class MainJFrame extends JFrame {
 									w.sendKeys(Keys.ENTER);
 									}else if(cases.get(i).action.get(j).getWaitingtype().equals("presenceOfElementLocated")) {
 											System.out.println("inside yes");
-											WebDriverWait wait = new WebDriverWait(web, Duration.ofSeconds(5));
+											WebDriverWait wait = new WebDriverWait(web, Duration.ofSeconds(cases.get(i).action.get(j).getWaitingPeriode()));
 											w = wait.until(ExpectedConditions
 													.presenceOfElementLocated(By.id(cases.get(i).action.get(j).getLink())));
 
@@ -666,7 +666,7 @@ public class MainJFrame extends JFrame {
 
 										System.out.println("inside no1");
 										// String xpath1=
-										WebDriverWait wait2 = new WebDriverWait(web, Duration.ofSeconds(5));
+										WebDriverWait wait2 = new WebDriverWait(web, Duration.ofSeconds(cases.get(i).action.get(j).getWaitingPeriode()));
 										String s = decodeStr(value);
 										w1 = wait2.until(ExpectedConditions
 												.elementToBeClickable(By.xpath(cases.get(i).action.get(j).getLink())));
@@ -675,7 +675,7 @@ public class MainJFrame extends JFrame {
 									}else if(cases.get(i).action.get(j).getWaitingtype().equals("presenceOfElementLocated")) {
 										System.out.println("inside no1");
 										// String xpath1=
-										WebDriverWait wait2 = new WebDriverWait(web, Duration.ofSeconds(5));
+										WebDriverWait wait2 = new WebDriverWait(web, Duration.ofSeconds(cases.get(i).action.get(j).getWaitingPeriode()));
 										String s = decodeStr(value);
 										w1 = wait2.until(ExpectedConditions
 												.presenceOfElementLocated(By.xpath(cases.get(i).action.get(j).getLink())));
@@ -720,7 +720,7 @@ public class MainJFrame extends JFrame {
 				} else if (cases.get(i).action.get(j).getType().contains("list")) {
 
 					List<WebElement> list = web.findElements(By.xpath(cases.get(i).action.get(j).getLink()));
-					WebDriverWait wait2 = new WebDriverWait(web, Duration.ofSeconds(5));
+					WebDriverWait wait2 = new WebDriverWait(web, Duration.ofSeconds(cases.get(i).action.get(j).getWaitingPeriode()));
 					for (WebElement b : list) {
 
 //					 String c=b.getText();
